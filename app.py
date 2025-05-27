@@ -18,24 +18,32 @@ if uploaded_file:
     st.subheader("1️⃣ 영어 → 한국어")
     eng_answers = []
     for i, row in eng_to_kor.iterrows():
-        ans = st.text_input(f"{i+1}. {row['English']}", key=f"eng_{i}")
-        eng_answers.append((ans.strip(), row['Korean'].strip()))
+        key = f"eng_{i}"
+        if key not in st.session_state:
+            st.session_state[key] = ""
+        st.session_state[key] = st.text_input(f"{i+1}. {row['English']}", value=st.session_state[key], key=key)
+        eng_answers.append((st.session_state[key].strip(), row['Korean'].strip()))
 
     st.subheader("2️⃣ 한국어 → 영어")
     kor_answers = []
     for i, row in kor_to_eng.iterrows():
-        ans = st.text_input(f"{i+21}. {row['Korean']}", key=f"kor_{i}")
-        kor_answers.append((ans.strip().lower(), row['English'].strip().lower()))
+        key = f"kor_{i}"
+        if key not in st.session_state:
+            st.session_state[key] = ""
+        st.session_state[key] = st.text_input(f"{i+21}. {row['Korean']}", value=st.session_state[key], key=key)
+        kor_answers.append((st.session_state[key].strip().lower(), row['English'].strip().lower()))
 
     if st.button("채점하기"):
         score = 0
         st.subheader("📋 채점 결과")
+
         for i, (user, correct) in enumerate(eng_answers):
             if user == correct:
                 st.write(f"{i+1}. ✅ 정답")
                 score += 1
             else:
                 st.write(f"{i+1}. ❌ 오답 (정답: {correct})")
+
         for i, (user, correct) in enumerate(kor_answers):
             if user == correct:
                 st.write(f"{i+21}. ✅ 정답")
