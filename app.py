@@ -1,4 +1,4 @@
-import streamlit as st
+    import streamlit as st
 import pandas as pd
 import random
 
@@ -34,22 +34,22 @@ if uploaded_file:
         st.subheader("1️⃣ 영어 → 한국어")
 
         # 영어 → 한국어
-eng_answers = []
-for i, row in eng_to_kor.iterrows():
-    key = f"eng_{i}"
-    if key not in st.session_state:
-        st.session_state[key] = ""
-    input_value = st.text_input(f"{i+1}. {row['English']}", value=st.session_state[key], key=key)
-    eng_answers.append((input_value.strip(), row['Korean'].strip()))
+        eng_answers = []
+            for i, row in eng_to_kor.iterrows():
+            key = f"eng_{i}"
+            if key not in st.session_state:
+                st.session_state[key] = ""
+            input_value = st.text_input(f"{i+1}. {row['English']}", value=st.session_state[key], key=key)
+            eng_answers.append((input_value.strip(), row['Korean'].strip()))
 
 # 한국어 → 영어
-kor_answers = []
-for i, row in kor_to_eng.iterrows():
-    key = f"kor_{i}"
-    if key not in st.session_state:
-        st.session_state[key] = ""
-    input_value = st.text_input(f"{i+1+eng_count}. {row['Korean']}", value=st.session_state[key], key=key)
-    kor_answers.append((input_value.strip().lower(), row['English'].strip().lower()))
+          kor_answers = []
+              for i, row in kor_to_eng.iterrows():
+            key = f"kor_{i}"
+            if key not in st.session_state:
+                  st.session_state[key] = ""
+            input_value = st.text_input(f"{i+1+eng_count}. {row['Korean']}", value=st.session_state[key], key=key)
+               kor_answers.append((input_value.strip().lower(), row['English'].strip().lower()))
 
         if st.button("✅ 채점하기"):
             score = 0
